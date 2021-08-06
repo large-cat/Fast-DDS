@@ -135,6 +135,7 @@ void PDPListener::onNewCacheChangeAdded(
                             << pdata->m_guid << " at "
                             << "MTTLoc: " << pdata->metatraffic_locators
                             << " DefLoc:" << pdata->default_locators);
+                    pdata->source_timestamp = change->sourceTimestamp;
 
                     // Assigning remote endpoints implies sending a DATA(p) to all matched and fixed readers, since
                     // StatelessWriter::matched_reader_add marks the entire history as unsent if the added reader's
@@ -153,6 +154,7 @@ void PDPListener::onNewCacheChangeAdded(
             {
                 pdata->updateData(temp_participant_data_);
                 pdata->isAlive = true;
+                pdata->source_timestamp = change->sourceTimestamp;
                 reader->getMutex().unlock();
 
                 logInfo(RTPS_PDP_DISCOVERY, "Update participant "
