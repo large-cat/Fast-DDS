@@ -279,7 +279,6 @@ ReturnCode_t DomainParticipantImpl::enable()
 
     guid_ = part->getGuid();
     rtps_participant_ = part;
-    rtps_participant_->enable();
 
     rtps_participant_->set_check_type_function(
         [this](const std::string& type_name) -> bool
@@ -320,6 +319,8 @@ ReturnCode_t DomainParticipantImpl::enable()
             }
         }
     }
+
+    rtps_participant_->enable();
 
     return ReturnCode_t::RETCODE_OK;
 }
